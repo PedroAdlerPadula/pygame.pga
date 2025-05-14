@@ -1,0 +1,13 @@
+# Estados para controle do fluxo da aplicação
+INIT = 0
+GAME = 1
+QUIT = 2
+GAME_OVER = 3
+
+#Dados Gerais
+WIDTH, HEIGHT = 800, 600
+FPS = 60
+
+#Dados do passaro
+WIDTH_BIRD = 60
+HEIGHT_BIRD = 60
