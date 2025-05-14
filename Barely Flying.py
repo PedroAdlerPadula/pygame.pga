@@ -30,6 +30,10 @@ cano_baixo = pygame.transform.scale(cano_baixo, (WIDTH_CANO, HEIGHT_CANO))
 bg_x = 0
 bg_speed = 2
 
+# Parametros iniciais do cano
+cano_x = 0 
+cano_speed = 3
+
 bird = Bird(bird_image)
 running = True
 
@@ -38,6 +42,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_q:
+                running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 bird.speedy = -10
@@ -47,12 +54,20 @@ while running:
     if bg_x <= -WIDTH:
         bg_x = 0
 
+    cano_x -= cano_speed
+    if cano_x <= -WIDTH:
+        cano_x = 0
+
     bird.update()
 
     screen.blit(background_image, (bg_x, 0))
     screen.blit(background_image, (bg_x + WIDTH, 0))
     screen.blit(bird_image, bird.rect)
-    screen.blit(cano_baixo, (WIDTH - 100, HEIGHT - 200))
+    screen.blit(cano_baixo, (cano_x,0))
+    screen.blit(cano_baixo, (cano_x + WIDTH, 0))
+    
+    
+
 
     pygame.display.flip()
     clock.tick(FPS)  # Limit FPS

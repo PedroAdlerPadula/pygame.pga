@@ -20,5 +20,9 @@ class Bird(pygame.sprite.Sprite):
         if self.rect.top > HEIGHT or self.rect.bottom < 0:
             state = GAME_OVER
 
+
+class Pipe(pygame.sprite.Sprite):
+    pass
+
     # def jump(self):
     #     self
