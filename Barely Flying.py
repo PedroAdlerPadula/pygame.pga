@@ -7,13 +7,12 @@ pygame.init()
 
 
 # Constants 
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 1200, 700
 FPS = 60
-# Initialize the screen
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Barely Flying")
 clock = pygame.time.Clock()
-# Load images
 
 background_image = pygame.image.load("assets/background/Background1.png")
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
@@ -22,8 +21,13 @@ bird_image = bird_image.subsurface((pygame.Rect(0, 0, 16, 16)))
 bird_image = pygame.transform.scale(bird_image, (WIDTH_BIRD, HEIGHT_BIRD))
 background_rect = background_image.get_rect()
 
+# Cria os parametros iniciais do moviumento do background
+bg_x = 0
+bg_speed = 2  
+
 bird = Bird(bird_image)
 running = True
+
 while running:
 
     for event in pygame.event.get():
@@ -32,13 +36,20 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 bird.speedy = -5
-        
+
+    # Cria o loop de movimento do background somente no eixo x 
+    bg_x -= bg_speed
+    if bg_x <= -WIDTH:
+        bg_x = 0
+
     bird.update()
-    screen.fill((255 ,255 ,255))
-    screen.blit(background_image, background_rect)
+
+    screen.blit(background_image, (bg_x, 0))
+    screen.blit(background_image, (bg_x + WIDTH, 0))
     screen.blit(bird_image, bird.rect)
 
     pygame.display.flip()
-    pygame.display.update()
+    clock.tick(FPS)  # Limit FPS
+
 pygame.quit()
 
