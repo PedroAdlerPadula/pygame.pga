@@ -14,12 +14,15 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Barely Flying")
 clock = pygame.time.Clock()
 
+
 background_image = pygame.image.load("assets/background/Background1.png")
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 bird_image = pygame.image.load("assets/Flappy Bird Assets/Player/StyleBird1/Bird1-1.png")
 bird_image = bird_image.subsurface((pygame.Rect(0, 0, 16, 16)))
 bird_image = pygame.transform.scale(bird_image, (WIDTH_BIRD, HEIGHT_BIRD))
 background_rect = background_image.get_rect()
+cano = pygame.image.load("assets/Flappy Bird Assets/Tiles/Style 1/PipeStyle1.png")
+cano = cano.subsurface((pygame.Rect(0, 0, 16, 20)))
 
 # Cria os parametros iniciais do moviumento do background
 bg_x = 0
@@ -47,6 +50,7 @@ while running:
     screen.blit(background_image, (bg_x, 0))
     screen.blit(background_image, (bg_x + WIDTH, 0))
     screen.blit(bird_image, bird.rect)
+    screen.blit(cano, (WIDTH - 100, HEIGHT - 200))
 
     pygame.display.flip()
     clock.tick(FPS)  # Limit FPS
