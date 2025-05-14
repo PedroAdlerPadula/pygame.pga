@@ -22,11 +22,13 @@ bird_image = bird_image.subsurface((pygame.Rect(0, 0, 16, 16)))
 bird_image = pygame.transform.scale(bird_image, (WIDTH_BIRD, HEIGHT_BIRD))
 background_rect = background_image.get_rect()
 cano = pygame.image.load("assets/Flappy Bird Assets/Tiles/Style 1/PipeStyle1.png")
-cano = cano.subsurface((pygame.Rect(0, 0, 16, 20)))
+cano = cano.subsurface((pygame.Rect(0, 0, 32, 80)))
+cano = pygame.transform.scale(cano, (WIDTH_CANO, HEIGHT_CANO))
+
 
 # Cria os parametros iniciais do moviumento do background
 bg_x = 0
-bg_speed = 2  
+bg_speed = 2
 
 bird = Bird(bird_image)
 running = True

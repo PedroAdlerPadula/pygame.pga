@@ -11,3 +11,7 @@ FPS = 60
 #Dados do passaro
 WIDTH_BIRD = 60
 HEIGHT_BIRD = 60
+
+#Dados do cano
+WIDTH_CANO = 80 
+HEIGHT_CANO = 400
