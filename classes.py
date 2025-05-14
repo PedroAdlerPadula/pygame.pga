@@ -12,7 +12,7 @@ class Bird(pygame.sprite.Sprite):
         self.rect.y = 300
         self.speedy = 1
         self.m = 1
-        self.g = 0.3
+        self.g = 0.5
 
     def update(self):
         self.speedy += self.g

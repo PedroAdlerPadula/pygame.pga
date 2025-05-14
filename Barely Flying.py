@@ -21,9 +21,9 @@ bird_image = pygame.image.load("assets/Flappy Bird Assets/Player/StyleBird1/Bird
 bird_image = bird_image.subsurface((pygame.Rect(0, 0, 16, 16)))
 bird_image = pygame.transform.scale(bird_image, (WIDTH_BIRD, HEIGHT_BIRD))
 background_rect = background_image.get_rect()
-cano = pygame.image.load("assets/Flappy Bird Assets/Tiles/Style 1/PipeStyle1.png")
-cano = cano.subsurface((pygame.Rect(0, 0, 32, 80)))
-cano = pygame.transform.scale(cano, (WIDTH_CANO, HEIGHT_CANO))
+cano_baixo = pygame.image.load("assets/Flappy Bird Assets/Tiles/Style 1/PipeStyle1.png")
+cano_baixo = cano_baixo.subsurface((pygame.Rect(0, 0, 32, 80)))
+cano_baixo = pygame.transform.scale(cano_baixo, (WIDTH_CANO, HEIGHT_CANO))
 
 
 # Cria os parametros iniciais do moviumento do background
@@ -40,7 +40,7 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                bird.speedy = -5
+                bird.speedy = -10
 
     # Cria o loop de movimento do background somente no eixo x 
     bg_x -= bg_speed
@@ -52,7 +52,7 @@ while running:
     screen.blit(background_image, (bg_x, 0))
     screen.blit(background_image, (bg_x + WIDTH, 0))
     screen.blit(bird_image, bird.rect)
-    screen.blit(cano, (WIDTH - 100, HEIGHT - 200))
+    screen.blit(cano_baixo, (WIDTH - 100, HEIGHT - 200))
 
     pygame.display.flip()
     clock.tick(FPS)  # Limit FPS

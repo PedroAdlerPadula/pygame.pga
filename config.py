@@ -5,7 +5,7 @@ QUIT = 2
 GAME_OVER = 3
 
 #Dados Gerais
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 1200, 700
 FPS = 60
 
 #Dados do passaro
