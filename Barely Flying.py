@@ -58,6 +58,9 @@ while running:
     if cano_x <= -WIDTH:
         cano_x = 0
 
+    if bird.rect.top < 0:
+        running = False
+
     bird.update()
 
     screen.blit(background_image, (bg_x, 0))
