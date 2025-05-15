@@ -60,6 +60,8 @@ while running:
 
     if bird.rect.top < 0:
         running = False
+    if bird.rect.bottom == HEIGHT:
+        running = False
 
     bird.update()
 
@@ -70,7 +72,6 @@ while running:
     screen.blit(cano_baixo, (cano_x + WIDTH, 0))
     
     
-
 
     pygame.display.flip()
     clock.tick(FPS)  # Limit FPS
