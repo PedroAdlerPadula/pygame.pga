@@ -35,6 +35,7 @@ cano_x = 0
 cano_speed = 3
 
 bird = Bird(bird_image)
+pipe = Pipe(cano_baixo)
 running = True
 
 while running:

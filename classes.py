@@ -22,7 +22,14 @@ class Bird(pygame.sprite.Sprite):
 
 
 class Pipe(pygame.sprite.Sprite):
-    pass
+    def __init__(self, img):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = 800
+        self.rect.y = 0
+        self.speedx = 3
 
     # def jump(self):
     #     self
