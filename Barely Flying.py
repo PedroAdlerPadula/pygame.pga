@@ -5,7 +5,6 @@ from classes import *
 
 pygame.init()
 
-
 # Constants 
 WIDTH, HEIGHT = 1200, 700
 FPS = 60
@@ -13,7 +12,6 @@ FPS = 60
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Barely Flying")
 clock = pygame.time.Clock()
-
 
 background_image = pygame.image.load("assets/background/Background1.png")
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
@@ -50,7 +48,7 @@ while running:
             if event.key == pygame.K_SPACE:
                 bird.speedy = -10
 
-    # Cria o loop de movimento do background somente no eixo x 
+    # Cria o loop de movimento do background somente no eixo x e do cano tambem
     bg_x -= bg_speed
     if bg_x <= -WIDTH:
         bg_x = 0
@@ -59,19 +57,20 @@ while running:
     if cano_x <= -WIDTH:
         cano_x = 0
 
+    # Verifica se o passaro saiu da tela resultando em game over
     if bird.rect.top < 0:
         running = False
-    if bird.rect.bottom == HEIGHT:
+    if bird.rect.bottom >= HEIGHT:
         running = False
 
     bird.update()
-
+    pipe.update()
+    
     screen.blit(background_image, (bg_x, 0))
     screen.blit(background_image, (bg_x + WIDTH, 0))
     screen.blit(bird_image, bird.rect)
     screen.blit(cano_baixo, (cano_x,0))
     screen.blit(cano_baixo, (cano_x + WIDTH, 0))
-    
     
 
     pygame.display.flip()
