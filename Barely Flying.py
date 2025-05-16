@@ -34,6 +34,14 @@ cano_speed = 3
 
 bird = Bird(bird_image)
 pipe = Pipe(cano_baixo)
+
+#criando grupos para fazer as colisões
+all_sprites = pygame.sprite.Group()
+all_sprites.add(bird)
+all_pipes = pygame.sprite.Group()
+all_sprites.add(pipe)
+all_pipes.add(pipe)
+
 running = True
 
 while running:
@@ -63,8 +71,12 @@ while running:
     if bird.rect.bottom >= HEIGHT:
         running = False
 
-    bird.update()
-    pipe.update()
+    all_sprites.update()
+
+    hits = pygame.sprite.spritecollide(bird, all_pipes, True)
+    if len(hits) > 0:
+        running = False
+
     
     screen.blit(background_image, (bg_x, 0))
     screen.blit(background_image, (bg_x + WIDTH, 0))
@@ -72,7 +84,7 @@ while running:
     screen.blit(cano_baixo, (cano_x,0))
     screen.blit(cano_baixo, (cano_x + WIDTH, 0))
     
-
+    pygame.display.update()
     pygame.display.flip()
     clock.tick(FPS)  # Limit FPS
 
