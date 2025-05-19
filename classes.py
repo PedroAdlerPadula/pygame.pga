@@ -47,9 +47,7 @@ class Pipe(pygame.sprite.Sprite):
                 self.rect.y = random.randint(370, 470)
              self.speedx = -3
 
-    
-    # def jump(self):
-    #     self
+
 
 class Pipe_2(pygame.sprite.Sprite):
     def __init__(self, img):
@@ -57,3 +55,32 @@ class Pipe_2(pygame.sprite.Sprite):
 
         self.image = img
         self.rect = self.image.get_rect()
+        
+
+class PipePair(pygame.sprite.Sprite):
+    def __init__(self, img_top, img_bottom, x_pos):
+        super().__init__()
+        
+        self.top_pipe = Pipe(img_top, x_pos, 0, True)
+        self.bottom_pipe = Pipe(img_bottom, x_pos, 0, False)
+        
+        self.reset_pipes(x_pos)
+
+    def reset_pipes(self, x_pos):
+        altura_al = random.randint(100, 300)
+        self.top_pipe.rect.x = x_pos
+        self.bottom_pipe.rect.x = x_pos
+
+        self.top_pipe.rect.y = altura_al - self.top_pipe.rect.height
+        self.bottom_pipe.rect.y = altura_al + 200 
+    def update(self):
+        self.top_pipe.update()
+        self.bottom_pipe.update()
+
+        # Quando o topo sair da tela, reposiciona ambos
+        if self.top_pipe.rect.x <= -self.top_pipe.rect.width:
+            self.reset_pipes(1300)
+
+    def draw(self, screen):
+        self.top_pipe.draw(screen)
+        self.bottom_pipe.draw(screen)

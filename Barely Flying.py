@@ -48,14 +48,26 @@ all_pipes = pygame.sprite.Group()
 # all_pipes.add(pipe)
 # all_sprites.add(newpipe)
 # all_pipes.add(newpipe)
-for i in range(4):
-    x_pos= 600+i*350
-    altura_al= random.randint(100,300)
-    pipe_top= Pipe(cano_baixo, x_pos, altura_al - HEIGHT_CANO, True)
-    pipe_bottom= Pipe(cano_baixo, x_pos, altura_al +200,False)
+# for i in range(4):
+#     x_pos= 600+i*350
+#     altura_al= random.randint(100,300)
+#     pipe_top= Pipe(cano_baixo, x_pos, altura_al - HEIGHT_CANO, True)
+#     pipe_bottom= Pipe(cano_baixo, x_pos, altura_al +200,False)
 
-    all_sprites.add(pipe_top, pipe_bottom)
-    all_pipes.add(pipe_top, pipe_bottom)
+#     all_sprites.add(pipe_top, pipe_bottom)
+#     all_pipes.add(pipe_top, pipe_bottom)
+# Criação inicial
+pipes = []
+for i in range(4):
+    x_pos = 600 + i * 350
+    pair = PipePair(cano_baixo, cano_baixo, x_pos)
+    pipes.append(pair)
+    all_sprites.add(pair.top_pipe, pair.bottom_pipe)
+    all_pipes.add(pair.top_pipe, pair.bottom_pipe)
+    
+for pair in pipes:
+    pair.update()
+    pair.draw(screen)
 
 
 
@@ -112,12 +124,7 @@ while running:
     all_pipes.draw(screen)
     # screen.blit(cano_baixo, (cano_x,0))
     # screen.blit(cano_baixo, (cano_x + WIDTH, 0))
- 
- #pipes
-    # maior_x= -1
-    # for pipe in all_pipes:
-    #     if pipe.rect.x > maior_x:
-    #         maior_x
+
     
     pygame.display.update()
     pygame.display.flip()
