@@ -22,7 +22,7 @@ class Bird(pygame.sprite.Sprite):
 
 
 class Pipe(pygame.sprite.Sprite):
-    def __init__(self, img, x, y):
+    def __init__(self, img, x, y, is_top):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = img
@@ -32,25 +32,22 @@ class Pipe(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.speedx = -3
+        self.is_top = is_top
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
 
     def update(self):
         self.rect.x += self.speedx
-        if self.rect.x <= 0:
+        if self.rect.x <= - self.rect.width:
              self.rect.x = 1300
-             self.rect.y = self.y
+             if self.is_top:
+                 self.rect.y = random.randint(100, 300) - self.rect.height
+             else:
+                self.rect.y = random.randint(370, 470)
              self.speedx = -3
 
-
     
-
-
-
-        
-        
-
     # def jump(self):
     #     self
 

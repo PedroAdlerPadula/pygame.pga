@@ -51,9 +51,8 @@ all_pipes = pygame.sprite.Group()
 for i in range(4):
     x_pos= 600+i*350
     altura_al= random.randint(100,300)
-    pipe_top= Pipe(cano_baixo, x_pos, altura_al - HEIGHT_CANO)
-
-    pipe_bottom= Pipe(cano_baixo, x_pos, altura_al +200)
+    pipe_top= Pipe(cano_baixo, x_pos, altura_al - HEIGHT_CANO, True)
+    pipe_bottom= Pipe(cano_baixo, x_pos, altura_al +200,False)
 
     all_sprites.add(pipe_top, pipe_bottom)
     all_pipes.add(pipe_top, pipe_bottom)
