@@ -1,7 +1,6 @@
 import pygame
 from config import *
 import random
-WIDTH, HEIGHT = 800, 600
 FPS = 60
 class Bird(pygame.sprite.Sprite):
     def __init__(self, img):
@@ -28,9 +27,17 @@ class Pipe(pygame.sprite.Sprite):
 
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, 800)
-        self.rect.y = random.randint(-100, HEIGHT_CANO)
-        self.speedx = 3
+        self.rect.x = 1300
+        self.rect.y = random.randint(-100, 0)
+        self.speedx = -3
+
+    def draw(self, screen):
+        screen.blit(self.image, (self.rect.x, self.rect.y))
+
+    def update(self):
+        self.rect.x += self.speedx
+        
+        
 
     # def jump(self):
     #     self
@@ -41,4 +48,3 @@ class Pipe_2(pygame.sprite.Sprite):
 
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.x = 

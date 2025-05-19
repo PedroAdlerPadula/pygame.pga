@@ -42,6 +42,11 @@ all_pipes = pygame.sprite.Group()
 all_sprites.add(pipe)
 all_pipes.add(pipe)
 
+newpipe = Pipe(cano_baixo)
+newpipe.rect.y = pipe.rect.bottom + 200
+all_sprites.add(newpipe)
+all_pipes.add(newpipe)
+
 running = True
 
 while running:
@@ -81,8 +86,10 @@ while running:
     screen.blit(background_image, (bg_x, 0))
     screen.blit(background_image, (bg_x + WIDTH, 0))
     screen.blit(bird_image, bird.rect)
-    screen.blit(cano_baixo, (cano_x,0))
-    screen.blit(cano_baixo, (cano_x + WIDTH, 0))
+    all_pipes.draw(screen)
+    # screen.blit(cano_baixo, (cano_x,0))
+    # screen.blit(cano_baixo, (cano_x + WIDTH, 0))
+
     
     pygame.display.update()
     pygame.display.flip()
