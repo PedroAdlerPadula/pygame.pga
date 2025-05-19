@@ -7,7 +7,7 @@ pygame.init()
 
 # Constants 
 WIDTH, HEIGHT = 1200, 700
-FPS = 60
+FPS = 100
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Barely Flying")
