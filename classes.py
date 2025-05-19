@@ -22,13 +22,15 @@ class Bird(pygame.sprite.Sprite):
 
 
 class Pipe(pygame.sprite.Sprite):
-    def __init__(self, img):
+    def __init__(self, img, x, y):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.x = 1300
-        self.rect.y = random.randint(-100, 0)
+        self.x = x
+        self.y = y
+        self.rect.x = x
+        self.rect.y = y
         self.speedx = -3
 
     def draw(self, screen):
@@ -36,6 +38,16 @@ class Pipe(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x += self.speedx
+        if self.rect.x <= 0:
+             self.rect.x = 1300
+             self.rect.y = self.y
+             self.speedx = -3
+
+
+    
+
+
+
         
         
 

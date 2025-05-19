@@ -33,19 +33,43 @@ cano_x = 0
 cano_speed = 3
 
 bird = Bird(bird_image)
-pipe = Pipe(cano_baixo)
+#pipe = Pipe(cano_baixo)
 
 #criando grupos para fazer as colisões
 all_sprites = pygame.sprite.Group()
 all_sprites.add(bird)
 all_pipes = pygame.sprite.Group()
-all_sprites.add(pipe)
-all_pipes.add(pipe)
 
-newpipe = Pipe(cano_baixo)
-newpipe.rect.y = pipe.rect.bottom + 200
-all_sprites.add(newpipe)
-all_pipes.add(newpipe)
+# pipe = Pipe(cano_baixo)
+
+# newpipe = Pipe(cano_baixo)
+# newpipe.rect.y = pipe.rect.bottom + 200
+# all_sprites.add(pipe)
+# all_pipes.add(pipe)
+# all_sprites.add(newpipe)
+# all_pipes.add(newpipe)
+for i in range(4):
+    x_pos= 600+i*350
+    altura_al= random.randint(100,300)
+    pipe_top= Pipe(cano_baixo, x_pos, altura_al - HEIGHT_CANO)
+
+    pipe_bottom= Pipe(cano_baixo, x_pos, altura_al +200)
+
+    all_sprites.add(pipe_top, pipe_bottom)
+    all_pipes.add(pipe_top, pipe_bottom)
+
+
+
+    # if newpipe.rect.x == 1100:
+    #     pipe = Pipe(cano_baixo)
+    #     newpipe = Pipe(cano_baixo)
+    #     newpipe.rect.y = pipe.rect.bottom + 200
+    #     all_sprites.add(pipe)
+    #     all_pipes.add(pipe)
+    #     all_sprites.add(newpipe)
+    #     all_pipes.add(newpipe)
+
+
 
 running = True
 
@@ -78,9 +102,9 @@ while running:
 
     all_sprites.update()
 
-    hits = pygame.sprite.spritecollide(bird, all_pipes, True)
-    if len(hits) > 0:
-        running = False
+    # hits = pygame.sprite.spritecollide(bird, all_pipes, True)
+    # if len(hits) > 0:
+    #     running = False
 
     
     screen.blit(background_image, (bg_x, 0))
@@ -89,7 +113,12 @@ while running:
     all_pipes.draw(screen)
     # screen.blit(cano_baixo, (cano_x,0))
     # screen.blit(cano_baixo, (cano_x + WIDTH, 0))
-
+ 
+ #pipes
+    # maior_x= -1
+    # for pipe in all_pipes:
+    #     if pipe.rect.x > maior_x:
+    #         maior_x
     
     pygame.display.update()
     pygame.display.flip()
