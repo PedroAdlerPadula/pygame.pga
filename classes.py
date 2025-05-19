@@ -34,3 +34,11 @@ class Pipe(pygame.sprite.Sprite):
 
     # def jump(self):
     #     self
+
+class Pipe_2(pygame.sprite.Sprite):
+    def __init__(self, img):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = 
