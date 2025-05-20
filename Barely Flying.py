@@ -113,9 +113,9 @@ while running:
 
     all_sprites.update()
 
-    # hits = pygame.sprite.spritecollide(bird, all_pipes, True)
-    # if len(hits) > 0:
-    #     running = False
+    hits = pygame.sprite.spritecollide(bird, all_pipes, True)
+    if len(hits) > 0:
+        running = False
 
     
     screen.blit(background_image, (bg_x, 0))
