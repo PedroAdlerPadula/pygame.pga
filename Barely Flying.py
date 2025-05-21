@@ -40,22 +40,6 @@ all_sprites = pygame.sprite.Group()
 all_sprites.add(bird)
 all_pipes = pygame.sprite.Group()
 
-# pipe = Pipe(cano_baixo)
-
-# newpipe = Pipe(cano_baixo)
-# newpipe.rect.y = pipe.rect.bottom + 200
-# all_sprites.add(pipe)
-# all_pipes.add(pipe)
-# all_sprites.add(newpipe)
-# all_pipes.add(newpipe)
-# for i in range(4):
-#     x_pos= 600+i*350
-#     altura_al= random.randint(100,300)
-#     pipe_top= Pipe(cano_baixo, x_pos, altura_al - HEIGHT_CANO, True)
-#     pipe_bottom= Pipe(cano_baixo, x_pos, altura_al +200,False)
-
-#     all_sprites.add(pipe_top, pipe_bottom)
-#     all_pipes.add(pipe_top, pipe_bottom)
 # Criação inicial
 pipes = []
 for i in range(4):
@@ -69,16 +53,6 @@ for pair in pipes:
     pair.update()
     pair.draw(screen)
 
-
-
-    # if newpipe.rect.x == 1100:
-    #     pipe = Pipe(cano_baixo)
-    #     newpipe = Pipe(cano_baixo)
-    #     newpipe.rect.y = pipe.rect.bottom + 200
-    #     all_sprites.add(pipe)
-    #     all_pipes.add(pipe)
-    #     all_sprites.add(newpipe)
-    #     all_pipes.add(newpipe)
 
 start_screen = StartScreen(screen, clock, WIDTH, HEIGHT, FPS, "assets/barely_flying_start.png")
 
@@ -124,10 +98,8 @@ while running:
     
     screen.blit(background_image, (bg_x, 0))
     screen.blit(background_image, (bg_x + WIDTH, 0))
-    screen.blit(bird_image, bird.rect)
+    all_sprites.draw(screen)
     all_pipes.draw(screen)
-    # screen.blit(cano_baixo, (cano_x,0))
-    # screen.blit(cano_baixo, (cano_x + WIDTH, 0))
 
     
     pygame.display.update()

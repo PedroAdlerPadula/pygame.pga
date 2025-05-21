@@ -5,7 +5,8 @@ FPS = 60
 class Bird(pygame.sprite.Sprite):
     def __init__(self, img):
         pygame.sprite.Sprite.__init__(self)
-
+        super().__init__()
+        self.original_image = img
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = 200
@@ -17,6 +18,9 @@ class Bird(pygame.sprite.Sprite):
     def update(self):
         self.speedy += self.g
         self.rect.y += self.speedy
+        angle = min(self.speedy * 3, 45)  # Limita a rotação a 45 graus
+        self.image = pygame.transform.rotate(self.original_image, -angle)
+        self.rect = self.image.get_rect(center=self.rect.center)
         if self.rect.top > HEIGHT or self.rect.bottom < 0:
             state = GAME_OVER
 
