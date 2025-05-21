@@ -22,6 +22,8 @@ background_rect = background_image.get_rect()
 cano_baixo = pygame.image.load("assets/Flappy Bird Assets/Tiles/Style 1/PipeStyle1.png")
 cano_baixo = cano_baixo.subsurface((pygame.Rect(0, 0, 32, 80)))
 cano_baixo = pygame.transform.scale(cano_baixo, (WIDTH_CANO, HEIGHT_CANO))
+croc_img = pygame.image.load("assets/unnamed_no_bg_cleaned.png")
+croc_img = pygame.transform.scale(croc_img, (WIDTH_CROCO, HEIGHT_CROCO))
 
 
 # Cria os parametros iniciais do moviumento do background
@@ -39,6 +41,8 @@ bird = Bird(bird_image)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(bird)
 all_pipes = pygame.sprite.Group()
+all_crocos = pygame.sprite.Group()
+
 
 # Criação inicial
 pipes = []
@@ -52,6 +56,15 @@ for i in range(4):
 for pair in pipes:
     pair.update()
     pair.draw(screen)
+
+crocos = []
+for i in range(3):
+    y_posic = random.randint(200, 500)
+    x_posic = 700 + i * 200
+    croco = croc(croc_img, x_posic, y_posic)
+    crocos.append(croco)
+    all_sprites.add(croco)
+    all_crocos.add(croco)
 
 
 start_screen = StartScreen(screen, clock, WIDTH, HEIGHT, FPS, "assets/barely_flying_start.png")
@@ -91,9 +104,9 @@ while running:
 
     all_sprites.update()
 
-    # hits = pygame.sprite.spritecollide(bird, all_pipes, True)
-    # if len(hits) > 0:
-    #     running = False
+    hits = pygame.sprite.spritecollide(bird, all_pipes, True)
+    if len(hits) > 0:
+        running = False
 
     
     screen.blit(background_image, (bg_x, 0))

@@ -15,3 +15,7 @@ HEIGHT_BIRD = 60
 #Dados do cano
 WIDTH_CANO = 80 
 HEIGHT_CANO = 400
+
+#Dados do croco
+WIDTH_CROCO = 3*100
+HEIGHT_CROCO = 3*74.2

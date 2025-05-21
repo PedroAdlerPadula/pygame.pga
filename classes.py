@@ -116,3 +116,25 @@ class StartScreen:
             
             pygame.display.update()
             self.clock.tick(self.fps)
+
+class croc(pygame.sprite.Sprite):
+    def __init__(self, img, x, y):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x
+        self.rect.y = y
+        self.speedx = -5
+
+    def draw(self, screen):
+        screen.blit(self.image, (self.rect.x, self.rect.y))
+
+    def update(self):
+        self.rect.x += self.speedx
+        if self.rect.x <= - self.rect.width:
+             self.rect.x = random.randint(1200, 1400)
+             self.speedx = -5
+             self.rect.y = random.randint(200,500)
