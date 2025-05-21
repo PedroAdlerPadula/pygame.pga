@@ -80,7 +80,11 @@ for pair in pipes:
     #     all_sprites.add(newpipe)
     #     all_pipes.add(newpipe)
 
+start_screen = StartScreen(screen, clock, WIDTH, HEIGHT, FPS, "assets/barely_flying_start.png")
 
+if start_screen.run() == "quit":
+    pygame.quit()
+    exit()
 
 running = True
 
