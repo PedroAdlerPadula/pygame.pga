@@ -41,10 +41,6 @@ class Pipe(pygame.sprite.Sprite):
         self.rect.x += self.speedx
         if self.rect.x <= - self.rect.width:
              self.rect.x = 1300
-             if self.is_top:
-                 self.rect.y = random.randint(100, 300) - self.rect.height
-             else:
-                self.rect.y = random.randint(370, 470)
              self.speedx = -3
 
 
@@ -72,7 +68,8 @@ class PipePair(pygame.sprite.Sprite):
         self.bottom_pipe.rect.x = x_pos
 
         self.top_pipe.rect.y = altura_al - self.top_pipe.rect.height
-        self.bottom_pipe.rect.y = altura_al + 200 
+        self.bottom_pipe.rect.y = self.top_pipe.rect.bottom + 200 
+    
     def update(self):
         self.top_pipe.update()
         self.bottom_pipe.update()
