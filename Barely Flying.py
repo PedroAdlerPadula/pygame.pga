@@ -63,10 +63,12 @@ for i in range(3):
     all_sprites.add(croco)
     all_crocos.add(croco)
 
-start_screen = StartScreen(screen, clock, WIDTH, HEIGHT, FPS, "assets/barely_flying_start.png")
-if start_screen.run() == "quit":
-    pygame.quit()
-    exit()
+start = True
+if start == True:
+    start_screen = StartScreen(screen, clock, WIDTH, HEIGHT, FPS, "assets/barely_flying_start.png")
+    if start_screen.run() == "quit":
+        pygame.quit()
+        exit()
 
 # Game over setup
 game_over = False
@@ -123,7 +125,8 @@ while running:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         waiting = False
-                        running = False  # Você pode mudar aqui para reiniciar o jogo
+                        running = True # Você pode mudar aqui para reiniciar o jogo
+                        start = True
         continue
 
     pygame.display.update()

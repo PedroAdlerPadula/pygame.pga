@@ -164,3 +164,26 @@ class GameOverScreen:
             
             pygame.display.update()
             self.clock.tick(self.fps)
+
+    class Bullet(pygame.sprite.Sprite):
+    # Construtor da classe.
+        def __init__(self, img, bottom, centerx):
+            # Construtor da classe mãe (Sprite).
+            pygame.sprite.Sprite.__init__(self)
+
+            self.image = img
+            self.mask = pygame.mask.from_surface(self.image)
+            self.rect = self.image.get_rect()
+
+            # Coloca no lugar inicial definido em x, y do constutor
+            self.rect.centerx = centerx
+            self.rect.bottom = bottom
+            self.speedx = -10  # Velocidade fixa para cima
+
+        def update(self):
+            # A bala só se move no eixo y
+            self.rect.x += self.speedx
+
+            # Se o tiro passar do inicio da tela, morre.
+            if self.rect.bottom < 0:
+                self.kill()
