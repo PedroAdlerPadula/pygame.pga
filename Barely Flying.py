@@ -113,21 +113,51 @@ while running:
 
     # Se game over, mostra imagem e espera tecla
     if game_over:
+    # Mostrar tela de game over
         screen.blit(game_over_image, (0, 0))
         pygame.display.flip()
 
-        waiting = True
-        while waiting:
+        esperando = True
+        while esperando:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    waiting = False
+                    esperando = False
                     running = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        waiting = False
-                        running = True # Você pode mudar aqui para reiniciar o jogo
-                        start = True
+                        esperando = False
+        
+        if not running:
+            break  # Sai do loop principal e fecha o jogo
+
+        # Voltar para a tela inicial
+        start_screen = StartScreen(screen, clock, WIDTH, HEIGHT, FPS, "assets/barely_flying_start.png")
+        if start_screen.run() == "quit":
+            running = False
+            break
+
+        # Resetar o jogo (limpar canos antigos e criar novos)
+        bird.rect.x = 200
+        bird.rect.y = 300
+        bird.speedy = 1
+        
+        # Remove canos antigos dos grupos e lista
+        for pair in pipes:
+            all_sprites.remove(pair.top_pipe, pair.bottom_pipe)
+            all_pipes.remove(pair.top_pipe, pair.bottom_pipe)
+        pipes.clear()
+
+        # Cria novos canos
+        for i in range(4):
+            x_pos = 600 + i * 350
+            pair = PipePair(cano_baixo, cano_baixo, x_pos)
+            pipes.append(pair)
+            all_sprites.add(pair.top_pipe, pair.bottom_pipe)
+            all_pipes.add(pair.top_pipe, pair.bottom_pipe)
+
+        game_over = False
         continue
+
 
     pygame.display.update()
     pygame.display.flip()

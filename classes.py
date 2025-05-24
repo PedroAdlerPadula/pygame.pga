@@ -187,3 +187,33 @@ class GameOverScreen:
             # Se o tiro passar do inicio da tela, morre.
             if self.rect.bottom < 0:
                 self.kill()
+class BackToMenu:
+    def __init__(self, screen, clock, width, height, fps, image_path):
+        self.screen = screen
+        self.clock = clock
+        self.width = width
+        self.height = height
+        self.fps = fps
+        
+        self.image = pygame.image.load("assets/barelyflyingStartScreen.png")
+        self.image = pygame.transform.scale(self.image, (width, height))
+        self.img_rect = self.image.get_rect(center=(width // 2, height // 2))
+    
+    def run(self):
+        esperando = True
+        while esperando:
+            self.screen.fill((0, 0, 0))
+            self.screen.blit(self.image, self.img_rect)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return "quit"
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.img_rect.collidepoint(event.pos):
+                        esperando = False
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        esperando = False
+            
+            pygame.display.update()
+            self.clock.tick(self.fps)
