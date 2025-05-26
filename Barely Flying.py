@@ -135,7 +135,7 @@ while running:
     all_pipes.draw(screen)
 
     # Desenha o score no canto superior esquerdo
-    score_surface = font.render(f"Score {score}", True, (255, 255, 255))
+    score_surface = font.render(f"Score: {score}", True, (255, 255, 255))
     screen.blit(score_surface, (20, 20))
 
     # Se game over, mostra imagem e espera tecla
