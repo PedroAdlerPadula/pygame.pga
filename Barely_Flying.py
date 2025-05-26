@@ -68,7 +68,7 @@ for pair in pipes:
 crocos = []
 for i in range(2):  # Agora só cria 2 crocodilos
     y_posic = random.randint(200, 500)
-    x_posic = 700 + i * 200
+    x_posic = WIDTH + (i * 200)  # Começa fora da tela
     croco = croc(croc_img, x_posic, y_posic)
     crocos.append(croco)
     all_sprites.add(croco)
@@ -129,7 +129,7 @@ def reset_game():
     crocos.clear()
     for i in range(2):
         y_posic = random.randint(200, 500)
-        x_posic = 700 + i * 200
+        x_posic = WIDTH + (i * 200)  # Começa fora da tela
         croco = croc(croc_img, x_posic, y_posic)
         crocos.append(croco)
         all_sprites.add(croco)
