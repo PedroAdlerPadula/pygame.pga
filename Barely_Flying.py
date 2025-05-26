@@ -24,7 +24,11 @@ for i in range(4):  # 4 frames na horizontal
     frame = pygame.transform.scale(frame, (WIDTH_BIRD, HEIGHT_BIRD))
     bird_images.append(frame)
 
-bird = Bird(bird_images)
+bullet_img = pygame.image.load("ASSETS/Laser_bullet.png").convert_alpha()
+bullet_img = pygame.transform.scale(bullet_img, (60,60))
+all_sprites = pygame.sprite.Group()
+all_bullets = pygame.sprite.Group()
+bird = Bird(bird_images, all_sprites, all_bullets, bullet_img)
 
 background_rect = background_image.get_rect()
 cano_baixo = pygame.image.load("assets/Flappy Bird Assets/Tiles/Style 1/PipeStyle1.png")
@@ -42,10 +46,11 @@ cano_x = 0
 cano_speed = 3
 
 # Criando grupos para fazer as colisões
-all_sprites = pygame.sprite.Group()
+
 all_sprites.add(bird)
 all_pipes = pygame.sprite.Group()
 all_crocos = pygame.sprite.Group()
+
 
 # Criação inicial
 pipes = []
@@ -69,6 +74,10 @@ for i in range(3):
     all_sprites.add(croco)
     all_crocos.add(croco)
 
+for croco in crocos:
+    croco.update()
+    croco.draw(screen)
+
 start = True
 if start == True:
     start_screen = StartScreen(screen, clock, WIDTH, HEIGHT, FPS, "assets/barely_flying_start.png")
@@ -90,7 +99,9 @@ for pair in pipes:
     pair.passed = False
 
 running = True
+print(crocos)
 while running:
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -100,6 +111,9 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 bird.gravidade = -10
+            if event.key == pygame.K_s:
+                # Atira um projétil
+                bird.shoot()
 
     # Cria o loop de movimento do background somente no eixo x e do cano tambem
     bg_x -= bg_speed
@@ -119,9 +133,20 @@ while running:
         game_over = True
 
     hits = pygame.sprite.spritecollide(bird, all_pipes, True)
+    hits = hits + pygame.sprite.spritecollide(bird, all_crocos, True)
+    hits2 = pygame.sprite.groupcollide(bird.all_bullets, all_crocos, True, True)
     if len(hits) > 0:
         game_over = True
+        new_croc = croc(croc_img, 1200, random.randint(200, 500))
+        all_sprites.add(new_croc)
+        all_crocos.add(new_croc)
 
+    if len(hits2) > 0:
+        score += 1
+        all_crocos.remove(croco)
+        new_croc = croc(croc_img, 1200, random.randint(200, 500))
+        all_sprites.add(new_croc)
+        all_crocos.add(new_croc)
     # Atualiza score: se o pássaro passou pelo cano e ainda não contou ponto
     for pair in pipes:            
         # O pássaro passou pelo centro do cano (ajuste 200 para a posição x do pássaro)
@@ -154,8 +179,8 @@ while running:
                     if event.key == pygame.K_SPACE:
                         esperando = False
         
-        if not running:
-            break  # Sai do loop principal e fecha o jogo
+        # if not running:
+        #     break  # Sai do loop principal e fecha o jogo
 
         # Voltar para a tela inicial
         start_screen = StartScreen(screen, clock, WIDTH, HEIGHT, FPS, "assets/barely_flying_start.png")

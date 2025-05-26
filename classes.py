@@ -1,10 +1,31 @@
 import pygame
 from config import *
 import random
-FPS = 60
 
+class Bullet(pygame.sprite.Sprite):
+    # Construtor da classe.
+        def __init__(self, img, right, centery):
+            # Construtor da classe mãe (Sprite).
+            pygame.sprite.Sprite.__init__(self)
+
+            self.image = img
+            self.mask = pygame.mask.from_surface(self.image)
+            self.rect = self.image.get_rect()
+
+            # Coloca no lugar inicial definido em x, y do constutor
+            self.rect.centery = centery
+            self.rect.right = right
+            self.speedx = 10  # Velocidade fixa para cima
+
+        def update(self):
+            # A bala só se move no eixo y
+            self.rect.x += self.speedx
+
+            # Se o tiro passar do inicio da tela, morre.
+            if self.rect.bottom < 0:
+                self.kill()
 class Bird(pygame.sprite.Sprite):
-    def __init__(self, bird_images):
+    def __init__(self, bird_images, all_sprites, all_bullets, bullet_img):
         super().__init__()
         self.images = bird_images
         self.image_index = 0
@@ -14,6 +35,13 @@ class Bird(pygame.sprite.Sprite):
         self.rect.y = 300
         self.gravidade = 1      
         self.animation_counter = 0
+        self.all_sprites = all_sprites
+        self.all_bullets = all_bullets
+        self.last_shot = pygame.time.get_ticks()
+        self.shoot_ticks = 500
+        self.groups = (self.all_sprites, self.all_bullets)
+        self.bullet_img = bullet_img
+
 
     def update(self):
         self.gravidade += 0.5  
@@ -33,6 +61,22 @@ class Bird(pygame.sprite.Sprite):
         base_image = self.images[self.image_index]
         self.image = pygame.transform.rotate(base_image, angle)
         self.rect = self.image.get_rect(center=self.rect.center)
+
+    def shoot(self):
+        # Verifica se pode atirar
+        now = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde o último tiro.
+        elapsed_ticks = now - self.last_shot
+
+        # Se já pode atirar novamente...
+        if elapsed_ticks > self.shoot_ticks:
+            # Marca o tick da nova imagem.
+            self.last_shot = now
+            # A nova bala vai ser criada logo acima e no centro horizontal da nave
+            new_bullet = Bullet(self.bullet_img, self.rect.right, self.rect.centery)
+            self.all_sprites.add(new_bullet)
+            self.all_bullets.add(new_bullet)
+            #self.assets[PEW_SOUND].play()
 
 class Pipe(pygame.sprite.Sprite):
     def __init__(self, img, x, y, is_top):
