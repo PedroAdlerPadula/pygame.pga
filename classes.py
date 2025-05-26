@@ -2,28 +2,37 @@ import pygame
 from config import *
 import random
 FPS = 60
+
 class Bird(pygame.sprite.Sprite):
-    def __init__(self, img):
-        pygame.sprite.Sprite.__init__(self)
+    def __init__(self, bird_images):
         super().__init__()
-        self.original_image = img
-        self.image = img
+        self.images = bird_images
+        self.image_index = 0
+        self.image = self.images[self.image_index]
         self.rect = self.image.get_rect()
         self.rect.x = 200
         self.rect.y = 300
-        self.speedy = 1
-        self.m = 1
-        self.g = 0.5
+        self.gravidade = 1      
+        self.animation_counter = 0
 
     def update(self):
-        self.speedy += self.g
-        self.rect.y += self.speedy
-        angle = min(self.speedy * 3, 45)  # Limita a rotação a 45 graus
-        self.image = pygame.transform.rotate(self.original_image, -angle)
-        self.rect = self.image.get_rect(center=self.rect.center)
-        if self.rect.top > HEIGHT or self.rect.bottom < 0:
-            state = GAME_OVER
+        self.gravidade += 0.5  
+        self.rect.y += self.gravidade  
 
+        # Animação: troca de frame a cada 5 updates
+        self.animation_counter += 1
+        if self.animation_counter >= 5:
+            self.image_index = (self.image_index + 1) % len(self.images)
+            self.animation_counter = 0
+
+        # Inclinação baseada na velocidade
+        angle = -self.gravidade * 3  
+        angle = max(-30, min(30, angle))  # Limita o ângulo entre -30 e 30 graus
+
+        # Atualiza a imagem com rotação
+        base_image = self.images[self.image_index]
+        self.image = pygame.transform.rotate(base_image, angle)
+        self.rect = self.image.get_rect(center=self.rect.center)
 
 class Pipe(pygame.sprite.Sprite):
     def __init__(self, img, x, y, is_top):
@@ -138,6 +147,7 @@ class croc(pygame.sprite.Sprite):
              self.rect.x = random.randint(1200, 1400)
              self.speedx = -5
              self.rect.y = random.randint(200,500)
+             
 class GameOverScreen:
     def __init__(self, screen, clock, width, height, fps, image_path):
         self.screen = screen

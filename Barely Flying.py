@@ -15,9 +15,17 @@ clock = pygame.time.Clock()
 
 background_image = pygame.image.load("assets/background/Background1.png")
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
-bird_image = pygame.image.load("assets/Flappy Bird Assets/Player/StyleBird1/Bird1-1.png")
-bird_image = bird_image.subsurface((pygame.Rect(0, 0, 16, 16)))
-bird_image = pygame.transform.scale(bird_image, (WIDTH_BIRD, HEIGHT_BIRD))
+
+# Carregue os frames do pássaro a partir do sprite sheet Bird1-1.png
+bird_images = []
+sprite_sheet = pygame.image.load("assets/Flappy Bird Assets/Player/StyleBird1/Bird1-1.png")
+for i in range(4):  # 4 frames na horizontal
+    frame = sprite_sheet.subsurface(pygame.Rect(i * 16, 0, 16, 16))
+    frame = pygame.transform.scale(frame, (WIDTH_BIRD, HEIGHT_BIRD))
+    bird_images.append(frame)
+
+bird = Bird(bird_images)
+
 background_rect = background_image.get_rect()
 cano_baixo = pygame.image.load("assets/Flappy Bird Assets/Tiles/Style 1/PipeStyle1.png")
 cano_baixo = cano_baixo.subsurface((pygame.Rect(0, 0, 32, 80)))
@@ -32,8 +40,6 @@ bg_speed = 2
 # Parametros iniciais do cano
 cano_x = 0 
 cano_speed = 3
-
-bird = Bird(bird_image)
 
 # Criando grupos para fazer as colisões
 all_sprites = pygame.sprite.Group()
@@ -85,7 +91,7 @@ while running:
                 running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                bird.speedy = -10
+                bird.gravidade = -10
 
     # Cria o loop de movimento do background somente no eixo x e do cano tambem
     bg_x -= bg_speed
@@ -139,7 +145,7 @@ while running:
         # Resetar o jogo (limpar canos antigos e criar novos)
         bird.rect.x = 200
         bird.rect.y = 300
-        bird.speedy = 1
+        bird.gravidade = 1
         
         # Remove canos antigos dos grupos e lista
         for pair in pipes:
