@@ -66,7 +66,7 @@ for pair in pipes:
     pair.draw(screen)
 
 crocos = []
-for i in range(3):
+for i in range(2):  # Agora só cria 2 crocodilos
     y_posic = random.randint(200, 500)
     x_posic = 700 + i * 200
     croco = croc(croc_img, x_posic, y_posic)
@@ -221,5 +221,3 @@ while running:
     clock.tick(FPS)  # Limit FPS
 
 pygame.quit()
-
-
