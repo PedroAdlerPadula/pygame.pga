@@ -81,6 +81,14 @@ game_over = False
 game_over_image = pygame.image.load("assets/GAMe over.png")
 game_over_image = pygame.transform.scale(game_over_image, (WIDTH, HEIGHT))
 
+# Adicione após a criação dos pipes
+score = 0
+font = pygame.font.SysFont(None, 60)
+
+# Marcar se o pássaro já passou por cada pipe pair
+for pair in pipes:
+    pair.passed = False
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -112,10 +120,23 @@ while running:
     if len(hits) > 0:
         game_over = True
 
+    # Atualiza score: se o pássaro passou pelo cano e ainda não contou ponto
+    for pair in pipes:
+        if not hasattr(pair, 'passed'):
+            pair.passed = False
+        # O pássaro passou pelo centro do cano (ajuste 200 para a posição x do pássaro)
+        if not pair.passed and pair.top_pipe.rect.right < bird.rect.left:
+            score += 1
+            pair.passed = True
+
     screen.blit(background_image, (bg_x, 0))
     screen.blit(background_image, (bg_x + WIDTH, 0))
     all_sprites.draw(screen)
     all_pipes.draw(screen)
+
+    # Desenha o score no canto superior esquerdo
+    score_surface = font.render(f"Score {score}", True, (255, 255, 255))
+    screen.blit(score_surface, (20, 20))
 
     # Se game over, mostra imagem e espera tecla
     if game_over:
@@ -160,6 +181,11 @@ while running:
             pipes.append(pair)
             all_sprites.add(pair.top_pipe, pair.bottom_pipe)
             all_pipes.add(pair.top_pipe, pair.bottom_pipe)
+
+        # Resetar o score e o status dos pipes ao reiniciar
+        score = 0
+        for pair in pipes:
+            pair.passed = False
 
         game_over = False
         continue
