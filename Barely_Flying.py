@@ -100,6 +100,49 @@ for pair in pipes:
 
 running = True
 print(crocos)
+
+def reset_game():
+    # Reset bird position and properties
+    bird.rect.x = 200
+    bird.rect.y = 300
+    bird.gravidade = 1
+    
+    # Clear all sprites
+    all_sprites.empty()
+    all_pipes.empty()
+    all_crocos.empty()
+    all_bullets.empty()
+    
+    # Add bird back to sprites
+    all_sprites.add(bird)
+    
+    # Reset pipes
+    pipes.clear()
+    for i in range(4):
+        x_pos = 600 + i * 350
+        pair = PipePair(cano_baixo, cano_baixo, x_pos)
+        pipes.append(pair)
+        all_sprites.add(pair.top_pipe, pair.bottom_pipe)
+        all_pipes.add(pair.top_pipe, pair.bottom_pipe)
+    
+    # Reset crocodiles
+    crocos.clear()
+    for i in range(2):
+        y_posic = random.randint(200, 500)
+        x_posic = 700 + i * 200
+        croco = croc(croc_img, x_posic, y_posic)
+        crocos.append(croco)
+        all_sprites.add(croco)
+        all_crocos.add(croco)
+    
+    # Reset score
+    global score
+    score = 0
+    
+    # Reset pipe passed status
+    for pair in pipes:
+        pair.passed = False
+
 while running:
 
     for event in pygame.event.get():
@@ -188,30 +231,8 @@ while running:
             running = False
             break
 
-        # Resetar o jogo (limpar canos antigos e criar novos)
-        bird.rect.x = 200
-        bird.rect.y = 300
-        bird.gravidade = 1
-        
-        # Remove canos antigos dos grupos e lista
-        for pair in pipes:
-            all_sprites.remove(pair.top_pipe, pair.bottom_pipe)
-            all_pipes.remove(pair.top_pipe, pair.bottom_pipe)
-        pipes.clear()
-
-        # Cria novos canos
-        for i in range(4):
-            x_pos = 600 + i * 350
-            pair = PipePair(cano_baixo, cano_baixo, x_pos)
-            pipes.append(pair)
-            all_sprites.add(pair.top_pipe, pair.bottom_pipe)
-            all_pipes.add(pair.top_pipe, pair.bottom_pipe)
-
-        # Resetar o score e o status dos pipes ao reiniciar
-        score = 0
-        for pair in pipes:
-            pair.passed = False
-
+        # Reset the game completely
+        reset_game()
         game_over = False
         continue
 
