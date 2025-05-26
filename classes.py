@@ -52,9 +52,9 @@ class Pipe(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x += self.speedx
-        if self.rect.x <= - self.rect.width:
-             self.rect.x = 1300
-             self.speedx = -3
+        # if self.rect.x <= - self.rect.width:
+        #      self.rect.x = 1300
+        #      self.speedx = -3
 
 
 
@@ -72,6 +72,7 @@ class PipePair(pygame.sprite.Sprite):
         
         self.top_pipe = Pipe(img_top, x_pos, 0, True)
         self.bottom_pipe = Pipe(img_bottom, x_pos, 0, False)
+        self.passed = False
         
         self.reset_pipes(x_pos)
 
@@ -84,12 +85,10 @@ class PipePair(pygame.sprite.Sprite):
         self.bottom_pipe.rect.y = self.top_pipe.rect.bottom + 200 
     
     def update(self):
-        self.top_pipe.update()
-        self.bottom_pipe.update()
-
         # Quando o topo sair da tela, reposiciona ambos
         if self.top_pipe.rect.x <= -self.top_pipe.rect.width:
             self.reset_pipes(1300)
+            self.passed = False  # Reseta o estado de passagem quando reposiciona
 
     def draw(self, screen):
         self.top_pipe.draw(screen)

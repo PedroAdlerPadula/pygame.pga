@@ -18,9 +18,9 @@ background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
 # Carregue os frames do pássaro a partir do sprite sheet Bird1-1.png
 bird_images = []
-sprite_sheet = pygame.image.load("assets/Flappy Bird Assets/Player/StyleBird1/Bird1-1.png")
+sprite_sheet = pygame.image.load("assets/Flappy Bird Assets/Player/StyleBird1/Bird1-1v2.png")
 for i in range(4):  # 4 frames na horizontal
-    frame = sprite_sheet.subsurface(pygame.Rect(i * 16, 0, 16, 16))
+    frame = sprite_sheet.subsurface(pygame.Rect(i * 16, 0, 16, 12))
     frame = pygame.transform.scale(frame, (WIDTH_BIRD, HEIGHT_BIRD))
     bird_images.append(frame)
 
@@ -111,6 +111,8 @@ while running:
         cano_x = 0
 
     all_sprites.update()
+    for pair in pipes:
+        pair.update()
 
     # Verifica se o passaro saiu da tela resultando em game over
     if bird.rect.top < 0 or bird.rect.bottom >= HEIGHT:
@@ -121,9 +123,7 @@ while running:
         game_over = True
 
     # Atualiza score: se o pássaro passou pelo cano e ainda não contou ponto
-    for pair in pipes:
-        if not hasattr(pair, 'passed'):
-            pair.passed = False
+    for pair in pipes:            
         # O pássaro passou pelo centro do cano (ajuste 200 para a posição x do pássaro)
         if not pair.passed and pair.top_pipe.rect.right < bird.rect.left:
             score += 1
