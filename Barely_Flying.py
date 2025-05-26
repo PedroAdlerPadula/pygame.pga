@@ -153,7 +153,7 @@ while running:
                 running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                bird.gravidade = -10
+                bird.gravidade = -6
             if event.key == pygame.K_s:
                 # Atira um projétil
                 bird.shoot()

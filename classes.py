@@ -44,7 +44,7 @@ class Bird(pygame.sprite.Sprite):
 
 
     def update(self):
-        self.gravidade += 0.5  
+        self.gravidade += 0.2  
         self.rect.y += self.gravidade  
 
         # Animação: troca de frame a cada 5 updates
