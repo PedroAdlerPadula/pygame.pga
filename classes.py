@@ -31,6 +31,7 @@ class Bird(pygame.sprite.Sprite):
         self.image_index = 0
         self.image = self.images[self.image_index]
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = 200
         self.rect.y = 300
         self.gravidade = 1      
@@ -41,7 +42,6 @@ class Bird(pygame.sprite.Sprite):
         self.shoot_ticks = 500
         self.groups = (self.all_sprites, self.all_bullets)
         self.bullet_img = bullet_img
-
 
     def update(self):
         self.gravidade += 0.2  
@@ -60,6 +60,7 @@ class Bird(pygame.sprite.Sprite):
         # Atualiza a imagem com rotação
         base_image = self.images[self.image_index]
         self.image = pygame.transform.rotate(base_image, angle)
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect(center=self.rect.center)
 
     def shoot(self):
@@ -175,6 +176,7 @@ class croc(pygame.sprite.Sprite):
 
         self.image = img
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.x = x
         self.y = y
         self.rect.x = x

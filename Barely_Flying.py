@@ -21,7 +21,7 @@ die_sound = pygame.mixer.Sound("sons/sfx_die.mp3")
 laser_sound = pygame.mixer.Sound("sons/laser-312360.mp3")
 start_sound= pygame.mixer.Sound("sons/game-start-6104.mp3")
 
-# Carrega e toca a  musica de fundo
+# Carrega e toca a  musica de fundo 
 pygame.mixer.music.load("ASSETS/musica_fundo.mp3")
 pygame.mixer.music.play(-1)  # loop infinito
 pygame.mixer.music.set_volume(0.3)  # volume em 30%
@@ -188,21 +188,27 @@ while running:
     if bird.rect.top < 0 or bird.rect.bottom >= HEIGHT:
         game_over = True
 
-    hits = pygame.sprite.spritecollide(bird, all_pipes, True)
-    hits = hits + pygame.sprite.spritecollide(bird, all_crocos, True)
-    hits2 = pygame.sprite.groupcollide(bird.all_bullets, all_crocos, True, True)
-    if len(hits) > 0:
-        game_over = True
-        new_croc = croc(croc_img, 1200, random.randint(200, 500))
-        all_sprites.add(new_croc)
-        all_crocos.add(new_croc)
+    # Verifica colisão com canos usando máscaras
+    for pipe in all_pipes:
+        if pygame.sprite.collide_mask(bird, pipe):
+            game_over = True
+            break
 
+    # Verifica colisão com crocodilos usando máscaras
+    for croco in all_crocos:
+        if pygame.sprite.collide_mask(bird, croco):
+            game_over = True
+            break
+
+    # Verifica colisão dos projéteis com crocodilos
+    hits2 = pygame.sprite.groupcollide(bird.all_bullets, all_crocos, True, True)
     if len(hits2) > 0:
         score += 1
         all_crocos.remove(croco)
         new_croc = croc(croc_img, 1200, random.randint(200, 500))
         all_sprites.add(new_croc)
         all_crocos.add(new_croc)
+
     # Atualiza score: se o pássaro passou pelo cano e ainda não contou ponto
     for pair in pipes:            
         # O pássaro passou pelo centro do cano (ajuste 200 para a posição x do pássaro)
