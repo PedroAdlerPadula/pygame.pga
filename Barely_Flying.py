@@ -20,6 +20,12 @@ point_sound = pygame.mixer.Sound("sons/sfx_point.mp3")
 die_sound = pygame.mixer.Sound("sons/sfx_die.mp3")
 laser_sound = pygame.mixer.Sound("sons/laser-312360.mp3")
 start_sound= pygame.mixer.Sound("sons/game-start-6104.mp3")
+
+# Load and play background music
+pygame.mixer.music.load("ASSETS/musica_fundo.mp3")
+pygame.mixer.music.play(-1)  # -1 means loop indefinitely
+pygame.mixer.music.set_volume(0.5)  # Set volume to 50%
+
 # Carregue os frames do pássaro a partir do sprite sheet Bird1-1.png
 bird_images = []
 sprite_sheet = pygame.image.load("assets/Flappy Bird Assets/Player/StyleBird1/Bird1-1v2.png")
