@@ -15,7 +15,11 @@ clock = pygame.time.Clock()
 
 background_image = pygame.image.load("assets/background/Background1.png")
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
-
+wing_sound = pygame.mixer.Sound("sons/sfx_wing.mp3")
+point_sound = pygame.mixer.Sound("sons/sfx_point.mp3")
+die_sound = pygame.mixer.Sound("sons/sfx_die.mp3")
+laser_sound = pygame.mixer.Sound("sons/laser-312360.mp3")
+start_sound= pygame.mixer.Sound("sons/game-start-6104.mp3")
 # Carregue os frames do pássaro a partir do sprite sheet Bird1-1.png
 bird_images = []
 sprite_sheet = pygame.image.load("assets/Flappy Bird Assets/Player/StyleBird1/Bird1-1v2.png")
@@ -154,9 +158,12 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 bird.gravidade = -6
+                wing_sound.play()
             if event.key == pygame.K_s:
                 # Atira um projétil
                 bird.shoot()
+                laser_sound.play()
+                
 
     # Cria o loop de movimento do background somente no eixo x e do cano tambem
     bg_x -= bg_speed
@@ -195,6 +202,7 @@ while running:
         # O pássaro passou pelo centro do cano (ajuste 200 para a posição x do pássaro)
         if not pair.passed and pair.top_pipe.rect.right < bird.rect.left:
             score += 1
+            point_sound.play()
             pair.passed = True
 
     screen.blit(background_image, (bg_x, 0))
@@ -209,8 +217,10 @@ while running:
     # Se game over, mostra imagem e espera tecla
     if game_over:
     # Mostrar tela de game over
+        die_sound.play()
         screen.blit(game_over_image, (0, 0))
         pygame.display.flip()
+        
 
         esperando = True
         while esperando:
@@ -220,6 +230,7 @@ while running:
                     running = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
+                        start_sound.play()
                         esperando = False
         
         # if not running:
