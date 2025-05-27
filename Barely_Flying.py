@@ -204,10 +204,11 @@ while running:
     hits2 = pygame.sprite.groupcollide(bird.all_bullets, all_crocos, True, True)
     if len(hits2) > 0:
         score += 1
-        all_crocos.remove(croco)
-        new_croc = croc(croc_img, 1200, random.randint(200, 500))
-        all_sprites.add(new_croc)
-        all_crocos.add(new_croc)
+        # Cria um novo crocodilo para cada um que foi atingido
+        for _ in range(len(hits2)):
+            new_croc = croc(croc_img, 1200, random.randint(200, 500))
+            all_sprites.add(new_croc)
+            all_crocos.add(new_croc)
 
     # Atualiza score: se o pássaro passou pelo cano e ainda não contou ponto
     for pair in pipes:            
