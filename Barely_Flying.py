@@ -21,10 +21,10 @@ die_sound = pygame.mixer.Sound("sons/sfx_die.mp3")
 laser_sound = pygame.mixer.Sound("sons/laser-312360.mp3")
 start_sound= pygame.mixer.Sound("sons/game-start-6104.mp3")
 
-# Load and play background music
+# Carrega e toca a  musica de fundo
 pygame.mixer.music.load("ASSETS/musica_fundo.mp3")
-pygame.mixer.music.play(-1)  # -1 means loop indefinitely
-pygame.mixer.music.set_volume(0.5)  # Set volume to 50%
+pygame.mixer.music.play(-1)  # loop infinito
+pygame.mixer.music.set_volume(0.3)  # volume em 30%
 
 # Carregue os frames do pássaro a partir do sprite sheet Bird1-1.png
 bird_images = []
