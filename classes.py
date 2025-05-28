@@ -2,6 +2,7 @@ import pygame
 from config import *
 import random
 
+#classe da bala 
 class Bullet(pygame.sprite.Sprite):
     # Construtor da classe.
         def __init__(self, img, right, centery):
@@ -24,6 +25,8 @@ class Bullet(pygame.sprite.Sprite):
             # Se o tiro passar do inicio da tela, morre.
             if self.rect.bottom < 0:
                 self.kill()
+
+#classe do pássaro 
 class Bird(pygame.sprite.Sprite):
     def __init__(self, bird_images, all_sprites, all_bullets, bullet_img):
         super().__init__()
@@ -79,6 +82,7 @@ class Bird(pygame.sprite.Sprite):
             self.all_bullets.add(new_bullet)
             #self.assets[PEW_SOUND].play()
 
+
 class Pipe(pygame.sprite.Sprite):
     def __init__(self, img, x, y, is_top):
         pygame.sprite.Sprite.__init__(self)
@@ -110,7 +114,7 @@ class Pipe_2(pygame.sprite.Sprite):
         self.image = img
         self.rect = self.image.get_rect()
         
-
+#par de canos 
 class PipePair(pygame.sprite.Sprite):
     def __init__(self, img_top, img_bottom, x_pos):
         super().__init__()
@@ -139,6 +143,7 @@ class PipePair(pygame.sprite.Sprite):
         self.top_pipe.draw(screen)
         self.bottom_pipe.draw(screen)
 
+# tela de inicio 
 class StartScreen:
     def __init__(self, screen, clock, width, height, fps, image_path):
         self.screen = screen
@@ -172,6 +177,7 @@ class StartScreen:
             pygame.display.update()
             self.clock.tick(self.fps)
 
+#classe do crocodilo 
 class croc(pygame.sprite.Sprite):
     def __init__(self, img, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -194,7 +200,8 @@ class croc(pygame.sprite.Sprite):
              self.rect.x = random.randint(1200, 1400)
              self.speedx = -5
              self.rect.y = random.randint(200,500)
-             
+
+#tela de game over 
 class GameOverScreen:
     def __init__(self, screen, clock, width, height, fps, image_path):
         self.screen = screen
@@ -244,6 +251,7 @@ class GameOverScreen:
             # Se o tiro passar do inicio da tela, morre.
             if self.rect.bottom < 0:
                 self.kill()
+#tela de para voltar para o menu 
 class BackToMenu:
     def __init__(self, screen, clock, width, height, fps, image_path):
         self.screen = screen

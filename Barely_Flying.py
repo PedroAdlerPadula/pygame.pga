@@ -9,10 +9,12 @@ pygame.init()
 WIDTH, HEIGHT = 1200, 700
 FPS = 100
 
+# Configuração da tela 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Barely Flying")
 clock = pygame.time.Clock()
 
+#carrega imagens e sons 
 background_image = pygame.image.load("assets/background/Background1.png")
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 wing_sound = pygame.mixer.Sound("sons/sfx_wing.mp3")
@@ -34,6 +36,7 @@ for i in range(4):  # 4 frames na horizontal
     frame = pygame.transform.scale(frame, (WIDTH_BIRD, HEIGHT_BIRD))
     bird_images.append(frame)
 
+#carrega imagem do bala 
 bullet_img = pygame.image.load("ASSETS/Laser_bullet.png").convert_alpha()
 bullet_img = pygame.transform.scale(bullet_img, (60,60))
 all_sprites = pygame.sprite.Group()
@@ -219,6 +222,7 @@ while running:
             point_sound.play()
             pair.passed = True
 
+    # Desenha o background e os sprites
     screen.blit(background_image, (bg_x, 0))
     screen.blit(background_image, (bg_x + WIDTH, 0))
     all_sprites.draw(screen)
