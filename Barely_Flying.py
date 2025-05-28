@@ -204,6 +204,7 @@ while running:
     hits2 = pygame.sprite.groupcollide(bird.all_bullets, all_crocos, True, True)
     if len(hits2) > 0:
         score += 1
+        point_sound.play()
         # Cria um novo crocodilo para cada um que foi atingido
         for _ in range(len(hits2)):
             new_croc = croc(croc_img, 1200, random.randint(200, 500))
