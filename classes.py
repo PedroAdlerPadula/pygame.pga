@@ -156,7 +156,9 @@ class StartScreen:
         while esperando:
             self.screen.fill((0, 0, 0))
             self.screen.blit(self.image, self.img_rect)
-            
+            font = pygame.font.SysFont(None, 48)
+            self.text = font.render('PRESS "S" TO SHOOT', True, (0, 0, 140))
+            self.screen.blit(self.text, (425, 600))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "quit"
